@@ -1,4 +1,17 @@
 package com.viana.gerenciamento_de_estacionamento.domain.ticket.ports;
 
-public class TicketRepository {
+import com.viana.gerenciamento_de_estacionamento.domain.ticket.Ticket;
+import java.util.Optional;
+
+public interface TicketRepository {
+
+    Ticket save(Ticket ticket);
+
+    Optional<Ticket> findById(String id);
+
+    Optional<Ticket> findByVeiculoPlacaAndStatusNotFinalizado(String placa);
+
+    void delete(Ticket ticket);
+
+
 }

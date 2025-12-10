@@ -1,4 +1,5 @@
 package com.viana.gerenciamento_de_estacionamento.domain.ticket;
 
-public class Status {
+public enum Status {
+    PENDENTE, PAGO, ISENTO, ISENTO_FUNCIONARIO, TOLERANCIA_APOS_PAGAMENTO_EXPIRADO, TOLERANCIA_APOS_ISENCAO_EXPIRADO, FINALIZADO;
 }
