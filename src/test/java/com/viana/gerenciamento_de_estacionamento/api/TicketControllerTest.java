@@ -3,7 +3,7 @@ package com.viana.gerenciamento_de_estacionamento.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.viana.gerenciamento_de_estacionamento.domain.ticket.Ticket;
 import com.viana.gerenciamento_de_estacionamento.domain.ticket.ports.TicketRepository;
-import com.viana.gerenciamento_de_estacionamento.domain.ticket.TicketTest.EmissaoService;
+import com.viana.gerenciamento_de_estacionamento.domain.ticket.service.EmissaoService;
 import com.viana.gerenciamento_de_estacionamento.domain.veiculo.Veiculo;
 import com.viana.gerenciamento_de_estacionamento.domain.veiculo.Veiculo.TipoVeiculo;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +23,7 @@ import java.time.ZoneId;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content; // Importação adicionada
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -52,9 +52,6 @@ class TicketControllerTest {
 
     private final LocalDateTime DEFAULT_TIME = LocalDateTime.of(2025, 1, 1, 10, 0, 0);
 
-    /**
-     * Helper para configurar o Mock do Clock para um horário específico.
-     */
     private void setupMockClock(LocalDateTime dateTime) {
         Instant instant = dateTime.atZone(ZoneId.systemDefault()).toInstant();
         when(clock.instant()).thenReturn(instant);
@@ -153,7 +150,7 @@ class TicketControllerTest {
 
         mockMvc.perform(put("/tickets/" + ticket.getId() + "/exempt-by-receipt")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("COMPROVANTE_VALIDO"))
+                        .content("\"COMPROVANTE_VALIDO\""))
                 .andExpect(status().isOk());
     }
 
